@@ -83,8 +83,8 @@ function changed() {
 function queueSave() {
   const snapshot=copy(state), current=revision;
   saveChain=saveChain.catch(()=>{}).then(async()=>{
-    try {await api('/api/save',snapshot); if(current===revision) {localStorage.removeItem(cacheKey); $('save-status').textContent=window.furnitureBackend?'Черновик сохранён в этом браузере':'Черновик сохранён на компьютере';}}
-    catch(error) {if(current===revision) {$('save-status').textContent='Не сохранено на диск'; message('Не удалось сохранить черновик. Сохраните его в файл.\n'+error.message);}}
+    try {await api('/api/save',snapshot); if(current===revision) {localStorage.removeItem(cacheKey); $('save-status').textContent=window.furnitureBackend?'Черновик сохранён в этом браузере':'Черновик сохранён на компьютере';} return true;}
+    catch(error) {if(current===revision) {$('save-status').textContent='Не сохранено на диск'; message('Не удалось сохранить черновик. Сохраните его в файл.\n'+error.message);} return false;}
   });
   return saveChain;
 }
@@ -118,9 +118,14 @@ function renderOrder() {
     ${field('Запас материала, %','order.settings.reserve_pct')}${field('Накладные расходы, %','order.settings.overhead_pct')}${select('Режим цены','order.settings.pricing_mode',{markup:'Наценка на себестоимость',margin:'Целевая маржа от цены'})}${field('Наценка / маржа, %','order.settings.pricing_pct')}${field('Скидка, %','order.settings.discount_pct')}${select('Режим НДС','order.settings.vat_mode',{none:'Без НДС',add:'Начисляется сверху',included:'Включён в цену'})}${field('Ставка НДС, %','order.settings.vat_pct')}</div>
     <p class="hint">Порядок: материал с запасом + кромка + фурнитура + работы + расходы → накладные → наценка или маржа → скидка → НДС. Запас применяется только к площади материала. Накладные и наценка применяются также к доставке и монтажу.</p></div>`;
 }
+function catalogSummary(item) {return `${esc(item.name || 'Новая позиция')} · ${rub(item.price)} / ${esc(units[item.unit] || item.unit)}`;}
+function openCatalog(path) {
+  const item=get(path), editor=[...document.querySelectorAll('[data-fold]')].find(el=>el.dataset.fold==='catalog-'+item.id);
+  if(editor) {editor.open=true; editor.scrollIntoView({block:'nearest'}); editor.querySelector('input')?.focus({preventScroll:true});}
+}
 function renderCatalog() {
-  $('catalog-panel').innerHTML=`<div class="card"><h2>Каталог цен</h2><p>Отредактируйте ставки здесь, затем выберите позиции в изделиях. Уже выбранные позиции сохраняют собственные снимки цен.</p><div class="actions">${button('Добавить позицию','catalog')}${button('Обновить цены текущего заказа','refresh')}</div><p class="hint">Обновление выполняется только по точному ID. При пропусках или несовместимых единицах заказ останется прежним.</p></div>
-  ${state.catalog.map((item,i)=>{const p='catalog.'+i;return `<details class="card" data-fold="catalog-${esc(item.id)}"><summary>${esc(item.name || 'Новая позиция')} · ${rub(item.price)} / ${esc(units[item.unit])}</summary><p class="hint">ID: ${esc(item.id)}</p><div class="grid">${field('Название',p+'.name')}${field('Артикул',p+'.sku')}${select('Тип позиции',p+'.kind',kinds)}${select('Единица цены',p+'.unit',Object.fromEntries(Object.entries(units).filter(([k])=>!['mm','min'].includes(k))))}${field('Цена, руб.',p+'.price')}${field('Источник цены',p+'.source')}${field('Дата цены',p+'.date','date')}${field('Версия цены',p+'.revision')}${item.kind==='sheet'?field('Длина листа, мм',p+'.length_mm')+field('Ширина листа, мм',p+'.width_mm')+field('Толщина, мм',p+'.thickness_mm'):''}</div>${button('Удалить из каталога','remove',p,'class="danger inline-button"')}</details>`;}).join('')}`;
+  $('catalog-panel').innerHTML=`<div class="card"><h2>Каталог цен</h2><p>Нажмите «Редактировать» у позиции, измените поля и нажмите «Сохранить прайс». Изменения также сохраняются автоматически. Цены уже добавленных в заказ позиций обновляются отдельно.</p><div class="actions">${button('Добавить позицию','catalog')}${button('Сохранить прайс','save-catalog','', 'class="primary"')}${button('Применить цены прайса к заказу','refresh')}</div><p class="hint">Обновление выполняется только по точному ID. При пропусках или несовместимых единицах заказ останется прежним.</p></div>
+  ${state.catalog.map((item,i)=>{const p='catalog.'+i;return `<details class="card" data-fold="catalog-${esc(item.id)}"><summary><span id="catalog-summary-${i}">${catalogSummary(item)}</span> ${button('Редактировать','edit-catalog',p)}</summary><p class="hint">ID: ${esc(item.id)}</p><div class="grid">${field('Название',p+'.name')}${field('Артикул',p+'.sku')}${select('Тип позиции',p+'.kind',kinds)}${select('Единица цены',p+'.unit',Object.fromEntries(Object.entries(units).filter(([k])=>!['mm','min'].includes(k))))}${field('Цена, руб.',p+'.price')}${field('Источник цены',p+'.source')}${field('Дата цены',p+'.date','date')}${field('Версия цены',p+'.revision')}${item.kind==='sheet'?field('Длина листа, мм',p+'.length_mm')+field('Ширина листа, мм',p+'.width_mm')+field('Толщина, мм',p+'.thickness_mm'):''}</div>${button('Удалить из каталога','remove',p,'class="danger inline-button"')}</details>`;}).join('')}`;
 }
 function render() {
   const folds = new Map([...document.querySelectorAll('[data-fold]')].map(el=>[el.dataset.fold,el.open]));
@@ -150,6 +155,15 @@ async function action(name,path,element) {
     if(importPreview.kind==='price') {state.catalog=importPreview.data.catalog;selectedTab='catalog';}
     else {state=importPreview.data.state;selectedTab='order';}
     $('import-dialog').close();importPreview=null;changed();render();return;
+  }
+  if(name==='edit-catalog') {openCatalog(path); return;}
+  if(name==='save-catalog') {
+    clearTimeout(timer); const current=revision; element.disabled=true;
+    try {
+      const saved=await queueSave();
+      if(saved && current===revision) {render(); message('Прайс сохранён. Для обновления стоимости уже добавленных позиций нажмите «Применить цены прайса к заказу», затем пересчитайте заказ.');}
+    } finally {element.disabled=false;}
+    return;
   }
   if(name==='edit-product') {tab('order'); const product=get(path); const editor=[...document.querySelectorAll('.product-editor')].find(el=>el.dataset.fold===product.id); if(editor) {editor.open=true; editor.scrollIntoView({block:'start'}); editor.querySelector('input')?.focus({preventScroll:true});} return;}
   if(name==='calculate') {
@@ -184,11 +198,16 @@ async function action(name,path,element) {
   else if(name==='copy') {const keys=path.split('.'),index=Number(keys.pop()),list=get(keys.join('.')),cloned=copy(list[index]); cloned.id=id(); if(cloned.name) cloned.name+=' (копия)'; list.splice(index+1,0,cloned);}
   else if(name==='remove') {if(!confirm('Удалить эту строку?')) return; const keys=path.split('.'),index=Number(keys.pop());get(keys.join('.')).splice(index,1);}
   changed(); render();
+  if(name==='catalog') openCatalog('catalog.'+(state.catalog.length-1));
 }
 document.addEventListener('input',event=>{
   const el=event.target,path=el.dataset.bind;
   if(!path || el.tagName==='SELECT' || el.type==='checkbox' || !state) return;
   set(path,el.value); changed();
+  if(path.startsWith('catalog.')) {
+    const index=path.split('.')[1], summary=$('catalog-summary-'+index);
+    if(summary) summary.innerHTML=catalogSummary(state.catalog[index]);
+  }
 });
 document.addEventListener('change',event=>{
   const el=event.target;
@@ -199,6 +218,8 @@ document.addEventListener('change',event=>{
     const snap=el.value?copy(candidates[0]):null; set(el.dataset.resource,snap);
     if(el.dataset.resource.endsWith('.resource') && snap) set(el.dataset.resource.replace(/\.resource$/,'.unit'),snap.unit);
     changed(); render();
+  } else if(el.dataset.bind && el.dataset.bind.startsWith('catalog.') && el.tagName!=='SELECT' && el.type!=='checkbox') {
+    renderOrder();
   } else if(el.dataset.bind && (el.tagName==='SELECT' || el.type==='checkbox')) {
     set(el.dataset.bind,el.type==='checkbox'?el.checked:el.value);
     if(el.dataset.bind.endsWith('.kind') && el.dataset.bind.startsWith('catalog.')) set(el.dataset.bind.replace(/\.kind$/,'.unit'),{sheet:'sheet',material:'m2',edge:'m',hardware:'piece',work:'hour',expense:'set'}[el.value]);
