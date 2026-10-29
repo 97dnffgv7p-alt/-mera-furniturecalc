@@ -1,0 +1,449 @@
+{
+  "format": "furniturecalc-order-1",
+  "catalog": [
+    {
+      "id": "board",
+      "name": "ЛДСП 16 мм (демо)",
+      "sku": "DEMO-board",
+      "kind": "sheet",
+      "unit": "sheet",
+      "price": "1000",
+      "source": "Учебные данные, не прайс компании",
+      "date": "2026-10-28",
+      "revision": "demo-1",
+      "length_mm": "2000",
+      "width_mm": "1000",
+      "thickness_mm": "16"
+    },
+    {
+      "id": "edge",
+      "name": "ПВХ 0.8 мм (демо)",
+      "sku": "DEMO-edge",
+      "kind": "edge",
+      "unit": "m",
+      "price": "20",
+      "source": "Учебные данные, не прайс компании",
+      "date": "2026-10-28",
+      "revision": "demo-1"
+    },
+    {
+      "id": "hinge",
+      "name": "Петля (демо)",
+      "sku": "DEMO-hinge",
+      "kind": "hardware",
+      "unit": "piece",
+      "price": "100",
+      "source": "Учебные данные, не прайс компании",
+      "date": "2026-10-28",
+      "revision": "demo-1"
+    },
+    {
+      "id": "legs",
+      "name": "Комплект опор (демо)",
+      "sku": "DEMO-legs",
+      "kind": "hardware",
+      "unit": "set",
+      "price": "400",
+      "source": "Учебные данные, не прайс компании",
+      "date": "2026-10-28",
+      "revision": "demo-1"
+    },
+    {
+      "id": "pin",
+      "name": "Полкодержатель (демо)",
+      "sku": "DEMO-pin",
+      "kind": "hardware",
+      "unit": "piece",
+      "price": "10",
+      "source": "Учебные данные, не прайс компании",
+      "date": "2026-10-28",
+      "revision": "demo-1"
+    },
+    {
+      "id": "assembly",
+      "name": "Сборка (демо)",
+      "sku": "DEMO-assembly",
+      "kind": "work",
+      "unit": "hour",
+      "price": "300",
+      "source": "Учебные данные, не прайс компании",
+      "date": "2026-10-28",
+      "revision": "demo-1"
+    },
+    {
+      "id": "delivery",
+      "name": "Доставка (демо)",
+      "sku": "DEMO-delivery",
+      "kind": "expense",
+      "unit": "set",
+      "price": "500",
+      "source": "Учебные данные, не прайс компании",
+      "date": "2026-10-28",
+      "revision": "demo-1"
+    },
+    {
+      "id": "installation",
+      "name": "Монтаж (демо)",
+      "sku": "DEMO-installation",
+      "kind": "expense",
+      "unit": "set",
+      "price": "800",
+      "source": "Учебные данные, не прайс компании",
+      "date": "2026-10-28",
+      "revision": "demo-1"
+    }
+  ],
+  "order": {
+    "id": "order-demo",
+    "number": "ДЕМО-001",
+    "date": "2026-10-28",
+    "client": "Учебный клиент",
+    "conditions": "Демонстрационные данные. Сроки и условия оплаты подлежат согласованию. Не предложение реальной компании.",
+    "expenses_confirmed": true,
+    "settings": {
+      "reserve_pct": "10",
+      "overhead_pct": "10",
+      "pricing_mode": "markup",
+      "pricing_pct": "20",
+      "discount_pct": "5",
+      "vat_mode": "add",
+      "vat_pct": "20"
+    },
+    "products": [
+      {
+        "id": "cabinet",
+        "code": "Ш-01",
+        "name": "Корпус шкафа — учебная комплектация",
+        "quantity": "2",
+        "length_mm": "1000",
+        "width_mm": "500",
+        "height_mm": "1800",
+        "composition_confirmed": true,
+        "parts": [
+          {
+            "id": "side",
+            "name": "Боковина",
+            "length_mm": "1000",
+            "width_mm": "500",
+            "quantity": "2",
+            "material": {
+              "id": "board",
+              "name": "ЛДСП 16 мм (демо)",
+              "sku": "DEMO-board",
+              "kind": "sheet",
+              "unit": "sheet",
+              "price": "1000",
+              "source": "Учебные данные, не прайс компании",
+              "date": "2026-10-28",
+              "revision": "demo-1",
+              "length_mm": "2000",
+              "width_mm": "1000",
+              "thickness_mm": "16"
+            },
+            "edges": {
+              "length1": {
+                "id": "edge",
+                "name": "ПВХ 0.8 мм (демо)",
+                "sku": "DEMO-edge",
+                "kind": "edge",
+                "unit": "m",
+                "price": "20",
+                "source": "Учебные данные, не прайс компании",
+                "date": "2026-10-28",
+                "revision": "demo-1"
+              },
+              "length2": null,
+              "width1": {
+                "id": "edge",
+                "name": "ПВХ 0.8 мм (демо)",
+                "sku": "DEMO-edge",
+                "kind": "edge",
+                "unit": "m",
+                "price": "20",
+                "source": "Учебные данные, не прайс компании",
+                "date": "2026-10-28",
+                "revision": "demo-1"
+              },
+              "width2": null
+            },
+            "edges_confirmed": true
+          }
+        ],
+        "hardware": [
+          {
+            "id": "hinges",
+            "resource": {
+              "id": "hinge",
+              "name": "Петля (демо)",
+              "sku": "DEMO-hinge",
+              "kind": "hardware",
+              "unit": "piece",
+              "price": "100",
+              "source": "Учебные данные, не прайс компании",
+              "date": "2026-10-28",
+              "revision": "demo-1"
+            },
+            "quantity": "2",
+            "unit": "piece"
+          }
+        ],
+        "work": [
+          {
+            "id": "assembly-cabinet",
+            "resource": {
+              "id": "assembly",
+              "name": "Сборка (демо)",
+              "sku": "DEMO-assembly",
+              "kind": "work",
+              "unit": "hour",
+              "price": "300",
+              "source": "Учебные данные, не прайс компании",
+              "date": "2026-10-28",
+              "revision": "demo-1"
+            },
+            "quantity": "1",
+            "unit": "hour"
+          }
+        ]
+      },
+      {
+        "id": "table",
+        "code": "С-01",
+        "name": "Стол — учебная комплектация",
+        "quantity": "1",
+        "length_mm": "1200",
+        "width_mm": "600",
+        "height_mm": "750",
+        "composition_confirmed": true,
+        "parts": [
+          {
+            "id": "top",
+            "name": "Столешница",
+            "length_mm": "1200",
+            "width_mm": "600",
+            "quantity": "1",
+            "material": {
+              "id": "board",
+              "name": "ЛДСП 16 мм (демо)",
+              "sku": "DEMO-board",
+              "kind": "sheet",
+              "unit": "sheet",
+              "price": "1000",
+              "source": "Учебные данные, не прайс компании",
+              "date": "2026-10-28",
+              "revision": "demo-1",
+              "length_mm": "2000",
+              "width_mm": "1000",
+              "thickness_mm": "16"
+            },
+            "edges": {
+              "length1": {
+                "id": "edge",
+                "name": "ПВХ 0.8 мм (демо)",
+                "sku": "DEMO-edge",
+                "kind": "edge",
+                "unit": "m",
+                "price": "20",
+                "source": "Учебные данные, не прайс компании",
+                "date": "2026-10-28",
+                "revision": "demo-1"
+              },
+              "length2": {
+                "id": "edge",
+                "name": "ПВХ 0.8 мм (демо)",
+                "sku": "DEMO-edge",
+                "kind": "edge",
+                "unit": "m",
+                "price": "20",
+                "source": "Учебные данные, не прайс компании",
+                "date": "2026-10-28",
+                "revision": "demo-1"
+              },
+              "width1": {
+                "id": "edge",
+                "name": "ПВХ 0.8 мм (демо)",
+                "sku": "DEMO-edge",
+                "kind": "edge",
+                "unit": "m",
+                "price": "20",
+                "source": "Учебные данные, не прайс компании",
+                "date": "2026-10-28",
+                "revision": "demo-1"
+              },
+              "width2": {
+                "id": "edge",
+                "name": "ПВХ 0.8 мм (демо)",
+                "sku": "DEMO-edge",
+                "kind": "edge",
+                "unit": "m",
+                "price": "20",
+                "source": "Учебные данные, не прайс компании",
+                "date": "2026-10-28",
+                "revision": "demo-1"
+              }
+            },
+            "edges_confirmed": true
+          }
+        ],
+        "hardware": [
+          {
+            "id": "legs",
+            "resource": {
+              "id": "legs",
+              "name": "Комплект опор (демо)",
+              "sku": "DEMO-legs",
+              "kind": "hardware",
+              "unit": "set",
+              "price": "400",
+              "source": "Учебные данные, не прайс компании",
+              "date": "2026-10-28",
+              "revision": "demo-1"
+            },
+            "quantity": "1",
+            "unit": "set"
+          }
+        ],
+        "work": [
+          {
+            "id": "assembly-table",
+            "resource": {
+              "id": "assembly",
+              "name": "Сборка (демо)",
+              "sku": "DEMO-assembly",
+              "kind": "work",
+              "unit": "hour",
+              "price": "300",
+              "source": "Учебные данные, не прайс компании",
+              "date": "2026-10-28",
+              "revision": "demo-1"
+            },
+            "quantity": "0.5",
+            "unit": "hour"
+          }
+        ]
+      },
+      {
+        "id": "shelf",
+        "code": "П-01",
+        "name": "Полка — учебная комплектация",
+        "quantity": "3",
+        "length_mm": "800",
+        "width_mm": "300",
+        "height_mm": "500",
+        "composition_confirmed": true,
+        "parts": [
+          {
+            "id": "shelf-part",
+            "name": "Полка",
+            "length_mm": "800",
+            "width_mm": "300",
+            "quantity": "2",
+            "material": {
+              "id": "board",
+              "name": "ЛДСП 16 мм (демо)",
+              "sku": "DEMO-board",
+              "kind": "sheet",
+              "unit": "sheet",
+              "price": "1000",
+              "source": "Учебные данные, не прайс компании",
+              "date": "2026-10-28",
+              "revision": "demo-1",
+              "length_mm": "2000",
+              "width_mm": "1000",
+              "thickness_mm": "16"
+            },
+            "edges": {
+              "length1": {
+                "id": "edge",
+                "name": "ПВХ 0.8 мм (демо)",
+                "sku": "DEMO-edge",
+                "kind": "edge",
+                "unit": "m",
+                "price": "20",
+                "source": "Учебные данные, не прайс компании",
+                "date": "2026-10-28",
+                "revision": "demo-1"
+              },
+              "length2": null,
+              "width1": null,
+              "width2": null
+            },
+            "edges_confirmed": true
+          }
+        ],
+        "hardware": [
+          {
+            "id": "pins",
+            "resource": {
+              "id": "pin",
+              "name": "Полкодержатель (демо)",
+              "sku": "DEMO-pin",
+              "kind": "hardware",
+              "unit": "piece",
+              "price": "10",
+              "source": "Учебные данные, не прайс компании",
+              "date": "2026-10-28",
+              "revision": "demo-1"
+            },
+            "quantity": "4",
+            "unit": "piece"
+          }
+        ],
+        "work": [
+          {
+            "id": "assembly-shelf",
+            "resource": {
+              "id": "assembly",
+              "name": "Сборка (демо)",
+              "sku": "DEMO-assembly",
+              "kind": "work",
+              "unit": "hour",
+              "price": "300",
+              "source": "Учебные данные, не прайс компании",
+              "date": "2026-10-28",
+              "revision": "demo-1"
+            },
+            "quantity": "0.25",
+            "unit": "hour"
+          }
+        ]
+      }
+    ],
+    "expenses": [
+      {
+        "id": "delivery",
+        "resource": {
+          "id": "delivery",
+          "name": "Доставка (демо)",
+          "sku": "DEMO-delivery",
+          "kind": "expense",
+          "unit": "set",
+          "price": "500",
+          "source": "Учебные данные, не прайс компании",
+          "date": "2026-10-28",
+          "revision": "demo-1"
+        },
+        "quantity": "1",
+        "unit": "set",
+        "kind": "delivery"
+      },
+      {
+        "id": "installation",
+        "resource": {
+          "id": "installation",
+          "name": "Монтаж (демо)",
+          "sku": "DEMO-installation",
+          "kind": "expense",
+          "unit": "set",
+          "price": "800",
+          "source": "Учебные данные, не прайс компании",
+          "date": "2026-10-28",
+          "revision": "demo-1"
+        },
+        "quantity": "1",
+        "unit": "set",
+        "kind": "installation"
+      }
+    ]
+  }
+}

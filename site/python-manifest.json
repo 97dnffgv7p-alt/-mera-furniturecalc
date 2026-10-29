@@ -1,0 +1,33 @@
+{
+  "files": [
+    "python/furniturecalc/__init__.py",
+    "python/furniturecalc/domain/__init__.py",
+    "python/furniturecalc/domain/models.py",
+    "python/furniturecalc/domain/calculations.py",
+    "python/furniturecalc/domain/order.py",
+    "python/furniturecalc/storage.py",
+    "python/furniturecalc/table_import.py",
+    "python/furniturecalc/browser_bridge.py"
+  ],
+  "sha256": {
+    "python/furniturecalc/__init__.py": "d6ef4dc52a8c42ff54fd3f6948caed2fd11e6e0dd4019eb4590f9726a08c4a2a",
+    "python/furniturecalc/domain/__init__.py": "e78844840e480dd24b6cf6438bc3e1780bf6a5581d388869338967caf42d72a4",
+    "python/furniturecalc/domain/models.py": "708ff17f949118ec8cf5b4ba968b52e5e4436363093fc326c27f3a1d1015c9af",
+    "python/furniturecalc/domain/calculations.py": "e5a18231d929b82dc1aaf1b410e512f57a89673d5ef6dbe93239fe3ee68140da",
+    "python/furniturecalc/domain/order.py": "3bb7837de5f0a7630aada1fb9f077bc10afc3914cc3b601eb27e33e93de509fe",
+    "python/furniturecalc/storage.py": "d4e182e0aff195cbb3fe28989adc155db9679f3b0487489fcf0bfca474ea6562",
+    "python/furniturecalc/table_import.py": "023d95ecefd260fd80141aa8077b8dfa5bd73306c3baa88987892496e2602bcf",
+    "python/furniturecalc/browser_bridge.py": "bf14a10c31e44534de2068512be1edb270c16125a9274039c30dcf7ca994f9c7",
+    "wheels/et_xmlfile-2.0.0-py3-none-any.whl": "7a91720bc756843502c3b7504c77b8fe44217c85c537d85037f0f536151b2caa",
+    "wheels/openpyxl-3.1.5-py2.py3-none-any.whl": "5282c12b107bffeef825f4617dc029afaf41d0ea60823bbb665ef3079dc79de2",
+    "runtime/pyodide.mjs": "6f1d60f7bf529beb300f0f47983c921d3982363640ba20af0e38efdddbc66109",
+    "runtime/pyodide.asm.mjs": "f7cdc8ece80678ceb712f8e65ebe6d3a83203a180c399865f49612a051693635",
+    "runtime/pyodide.asm.wasm": "cc36e3cab04fdfc9a63ff13eb52eae2b911bf46c025cc7b281f394bd3de1d5e6",
+    "runtime/python_stdlib.zip": "fa1957e5777068fc4f7437f96d860ae2fbe9c19732ba06c84e004ec16dd7dd7a",
+    "runtime/pyodide-lock.json": "5dc2fc119108bc148c7457dc86e7675b5c87e1cafd420b9c34c1eaef7b36c010"
+  },
+  "wheels": [
+    "et_xmlfile-2.0.0-py3-none-any.whl",
+    "openpyxl-3.1.5-py2.py3-none-any.whl"
+  ]
+}

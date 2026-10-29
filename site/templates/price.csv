@@ -1,0 +1,9 @@
+﻿id;name;sku;kind;unit;price;length_mm;width_mm;thickness_mm;source;date;revision
+board;ЛДСП 16 мм (демо);DEMO-board;sheet;sheet;1000;2000;1000;16;Учебные данные, не прайс компании;2026-10-28;demo-1
+edge;ПВХ 0.8 мм (демо);DEMO-edge;edge;m;20;;;;Учебные данные, не прайс компании;2026-10-28;demo-1
+hinge;Петля (демо);DEMO-hinge;hardware;piece;100;;;;Учебные данные, не прайс компании;2026-10-28;demo-1
+legs;Комплект опор (демо);DEMO-legs;hardware;set;400;;;;Учебные данные, не прайс компании;2026-10-28;demo-1
+pin;Полкодержатель (демо);DEMO-pin;hardware;piece;10;;;;Учебные данные, не прайс компании;2026-10-28;demo-1
+assembly;Сборка (демо);DEMO-assembly;work;hour;300;;;;Учебные данные, не прайс компании;2026-10-28;demo-1
+delivery;Доставка (демо);DEMO-delivery;expense;set;500;;;;Учебные данные, не прайс компании;2026-10-28;demo-1
+installation;Монтаж (демо);DEMO-installation;expense;set;800;;;;Учебные данные, не прайс компании;2026-10-28;demo-1

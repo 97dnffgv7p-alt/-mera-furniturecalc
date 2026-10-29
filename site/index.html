@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="app-token" content="browser-only">
+  <meta name="workspace" content="hosted-order-1">
+  <title>МЕРА · FurnitureCalc — калькулятор мебели</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/hosted-backend.js" defer></script>
+  <script src="/app.js" defer></script>
+<meta name="description" content="МЕРА — тестовый калькулятор мебельного заказа на ядре FurnitureCalc. Данные обрабатываются на устройстве пользователя.">
+</head>
+<body>
+  <header class="topbar">
+    <button class="brand" data-tab="order" aria-label="МЕРА — к смете"><span class="logo">М</span><span><b>МЕРА</b><small>КАЛЬКУЛЯТОР МЕБЕЛИ</small></span></button>
+    <nav aria-label="Разделы"><button data-tab="order" class="active">Смета</button><button data-tab="catalog">Прайс <i id="catalog-count">—</i></button><button data-tab="result">Детализация</button></nav>
+    <div class="top-actions"><button data-action="demo" class="ghost">Учебный пример</button><button data-action="download" class="primary">Сохранить проект ↓</button></div>
+  </header>
+  <main class="shell">
+    <section class="hero"><div><p class="kicker">РАСЧЁТ ПРОЕКТА · FURNITURECALC</p><h1>Ни одной потерянной позиции.</h1><p>Детали → материалы и работы → проверка → прозрачная стоимость заказа.</p></div><div class="hero-total"><span>К ОПЛАТЕ</span><strong id="hero-payable">— ₽</strong><small id="hero-status">Выполните расчёт</small></div></section>
+    <section class="upload-grid" aria-label="Работа с проектом">
+      <div class="upload-card"><div class="file-icon">↗</div><div class="upload-copy"><b>Сохранённый проект</b><span>Продолжите работу с вашим заказом</span><small>Файл FurnitureCalc · JSON</small></div><button data-action="open">Открыть</button></div>
+      <div class="upload-card"><div class="file-icon price">₽</div><div class="upload-copy"><b>Прайс материалов и работ</b><span>Листы, м², погонные метры, штуки, часы</span><small>Ручное редактирование · снимки цен</small></div><button data-tab="catalog">Редактировать</button></div>
+      <input id="file" type="file" accept=".json,application/json" hidden>
+    </section>
+    <section id="hosted-imports" class="card" hidden>
+      <div class="row-head"><div><p class="kicker">ТАБЛИЧНЫЙ ВВОД</p><h2>ТЗ и прайс по шаблону</h2></div><div class="actions"><button data-action="import-price">Загрузить прайс</button><button data-action="import-spec">Загрузить ТЗ</button></div></div>
+      <p class="hint">Сначала прайс, затем ТЗ. Поддерживаются XLSX (лист «Данные») и CSV UTF-8 с разделителем «;». Произвольные таблицы и чертежи пока не распознаются. Перед применением покажем содержимое.</p>
+      <p class="template-links"><a href="/templates/price.xlsx" download>Учебный прайс XLSX ↓</a> · <a href="/templates/specification.xlsx" download>Учебное ТЗ XLSX ↓</a> · <a href="/templates/price.csv" download>Прайс CSV ↓</a> · <a href="/templates/specification.csv" download>ТЗ CSV ↓</a></p>
+      <input id="price-file" type="file" accept=".xlsx,.csv" hidden><input id="spec-file" type="file" accept=".xlsx,.csv" hidden>
+    </section>
+    <section class="calculate-bar dirty" id="calculate-bar"><div><b id="calculation-status">Заказ готов к проверке</b><span id="calculation-hint">Заполните состав изделий и нажмите «Рассчитать заказ».</span><small id="save-status" role="status">Загрузка…</small></div><div class="calculate-actions"><button data-action="new" class="ghost">Новый заказ</button><button class="primary" data-action="calculate">Рассчитать заказ</button></div></section>
+    <section class="metrics" aria-label="Сводка заказа">
+      <article><span>ПОЗИЦИИ / ВСЕГО ИЗДЕЛИЙ</span><strong id="metric-products">— / —</strong><small>количество каждого изделия учитывается один раз</small></article>
+      <article><span>СТРОК ДЕТАЛЕЙ</span><strong id="metric-parts">—</strong><small>состав и кромление по сторонам</small></article>
+      <article><span>ПОЗИЦИЙ В ПРАЙСЕ</span><strong id="metric-catalog">—</strong><small>цены в заказе хранятся отдельно</small></article>
+      <article><span>КОНТРОЛЬ РАСЧЁТА</span><strong id="metric-validation">Ожидает</strong><small id="metric-validation-note">неизвестное значение не равно нулю</small></article>
+    </section>
+    <p class="notice">Первый запуск содержит учебные цены и условную комплектацию. Проверьте их перед расчётом своего заказа. Размеры — в мм, стоимость — в рублях.</p>
+    <div id="message" role="alert" hidden></div>
+    <div class="workspace" id="workspace">
+      <div class="workspace-content"><section id="order-panel"></section><section id="catalog-panel" hidden></section><section id="result-panel" hidden><div class="empty">Нажмите «Рассчитать заказ». При незаполненных данных здесь появится объяснение.</div></section></div>
+      <aside class="panel summary" aria-label="Итог заказа"><div class="panel-head"><div><p class="kicker">02 · ИТОГ</p><h2>Для клиента</h2></div></div><div id="summary-content"></div><button class="download" data-action="download">Сохранить проект ↓</button><p class="privacy">Данные сохраняются в этом браузере.<br>Для отдельной копии скачайте файл.</p></aside>
+    </div>
+  </main>
+  <dialog id="import-dialog"><div class="panel-head"><div><p class="kicker">ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР</p><h2 id="import-title">Импорт</h2></div><button data-action="cancel-import">Закрыть</button></div><div id="import-preview"></div><div class="dialog-actions"><button data-action="cancel-import">Отмена</button><button class="primary" data-action="apply-import">Применить</button></div></dialog>
+  <footer class="site-footer"><span>МЕРА · FURNITURECALC</span><span>Тестовая версия · материал по площади, без точного раскроя</span></footer>
+</body>
+</html>

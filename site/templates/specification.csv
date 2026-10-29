@@ -1,0 +1,15 @@
+﻿type;id;product_id;name;code;length_mm;width_mm;height_mm;quantity;resource_id;unit;edge_length1;edge_length2;edge_width1;edge_width2;expense_kind
+product;cabinet;;Корпус шкафа — учебная комплектация;Ш-01;1000;500;1800;2;;;;;;;
+part;side;cabinet;Боковина;;1000;500;;2;board;;edge;;edge;;
+hardware;hinges;cabinet;;;;;;2;hinge;piece;;;;;
+work;assembly-cabinet;cabinet;;;;;;1;assembly;hour;;;;;
+product;table;;Стол — учебная комплектация;С-01;1200;600;750;1;;;;;;;
+part;top;table;Столешница;;1200;600;;1;board;;edge;edge;edge;edge;
+hardware;legs;table;;;;;;1;legs;set;;;;;
+work;assembly-table;table;;;;;;0.5;assembly;hour;;;;;
+product;shelf;;Полка — учебная комплектация;П-01;800;300;500;3;;;;;;;
+part;shelf-part;shelf;Полка;;800;300;;2;board;;edge;;;;
+hardware;pins;shelf;;;;;;4;pin;piece;;;;;
+work;assembly-shelf;shelf;;;;;;0.25;assembly;hour;;;;;
+expense;delivery;;;;;;;1;delivery;set;;;;;delivery
+expense;installation;;;;;;;1;installation;set;;;;;installation
