@@ -1,0 +1,60 @@
+name: Резервный сайт GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', 'tools/build_render.py', '.github/workflows/pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Собрать тот же Python-калькулятор
+        run: python tools/build_render.py
+      - name: Подготовить адреса для подпапки репозитория
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          root = Path('dist')
+          index = root / 'index.html'
+          text = index.read_text(encoding='utf-8')
+          text = text.replace('href="/', 'href="./').replace('src="/', 'src="./')
+          assert 'href="/' not in text and 'src="/' not in text
+          index.write_text(text, encoding='utf-8')
+          backend = root / 'hosted-backend.js'
+          text = backend.read_text(encoding='utf-8')
+          for path in ('python-worker.mjs', 'order_demo.json'):
+              old = "'/" + path + "'"
+              assert old in text, path
+              text = text.replace(old, "'./" + path + "'")
+          backend.write_text(text, encoding='utf-8')
+          (root / '.nojekyll').touch()
+          PY
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Опубликовать резервный сайт
+        id: deployment
+        uses: actions/deploy-pages@v4
